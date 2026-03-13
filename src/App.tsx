@@ -284,7 +284,7 @@ export default function App() {
               <div style={{ fontSize: 9, letterSpacing: 5, color: C.gold, textTransform: "uppercase", marginBottom: 20 }}>Yönetim Girişi</div>
               <input type="password" style={{ ...inputStyle, marginBottom: 8 }} placeholder="Şifre" value={adminPass} onChange={e => setAdminPass(e.target.value)} onKeyDown={e => e.key === "Enter" && setAdminAuth(adminPass === "admin123")} />
               <div style={{ color: C.textDim, fontSize: 9, marginBottom: 12 }}>Şifre: admin123</div>
-              <button onClick={() => setAdminAuth(adminPass === "admin123")} style={goldBtn}>Giriş Yap</button>
+              <button onClick={() => setAdminAuth(adminPass === "4948Luca")} style={goldBtn}>Giriş Yap</button>
             </div>
           ) : (
             <div>
