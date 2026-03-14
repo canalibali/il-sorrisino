@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import emailjs from '@emailjs/browser';
 const SUPABASE_URL = "https://hsdqjwkilcojzcxzhmco.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzZHFqd2tpbGNvanpjeHpobWNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MDk1MTEsImV4cCI6MjA4ODk4NTUxMX0.AI2yJFvQUqPsZ6AvCfsQVXMRzPtpEU0ikD5S1SSfRsc";
 
@@ -115,21 +114,25 @@ export default function App() {
       setReservations(prev => [...prev, result[0]]);
       setMyCode(`RES-${result[0].id}`);
       setSuccess(true); setStep(1);
-      emailjs.send(
-        "service_vse0fwr",
-        "template_96ztvvr",
-        {
-          name: form.name,
-          phone: form.phone,
-          date: form.date,
-          time: form.time,
-          guests: form.guests,
-          duration: form.duration,
-          table: selectedTable.label,
-          note: form.note || "—"
-        },
-        "pWUzrRJ3dE0_-UsYz"
-      );
+      fetch("https://api.emailjs.com/api/v1.0/email/send", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    service_id: "service_vse0fwr",
+    template_id: "template_96ztvvr",
+    user_id: "pWUzrRJ3dE0_-UsYz",
+    template_params: {
+      name: form.name,
+      phone: form.phone,
+      date: form.date,
+      time: form.time,
+      guests: form.guests,
+      duration: form.duration,
+      table: selectedTable.label,
+      note: form.note || "—"
+    }
+  })
+});
       setForm({ name: "", phone: "", guests: 2, date: getDefaultDate(), time: "", duration: 1, note: "" });
       setSelectedTable(null);
     }
